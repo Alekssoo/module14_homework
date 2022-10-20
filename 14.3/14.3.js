@@ -34,7 +34,7 @@ function useRequest(url, getParam1, getParam2, callback) {
 
   // На кнопку вешаем обработчик запроса
   btnReq.addEventListener('click', () => {
-    if (99<valueParam_1<501 && 99<valueParam_2<501) {
+    if (valueParam_1 >= 100 && valueParam_1 <= 500 && valueParam_2 >= 100 && valueParam_2 <= 500) {
     useRequest(reqUrl, valueParam_1, valueParam_2);
     } else {
         divWrong.innerHTML = "Число вне диапазона от 100 до 500! "
