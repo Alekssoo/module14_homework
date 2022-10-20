@@ -22,21 +22,26 @@ function useRequest(url, getParam1, getParam2, callback) {
             console.log('Результат: ', JSON.parse(xhr.response));
         }
     };
+
+
+    xhr.send();
 }
 
 
 
   const btnReq = document.querySelector('.btn-req');
-  const valueParam_1 = document.querySelector('.input-1').value;
-  const valueParam_2 = document.querySelector('.input-2').value;
-  const divWrong = document.querySelector('.divWrong');
+
+  const divWrong = document.querySelector('.div-wrong');
   
 
   // На кнопку вешаем обработчик запроса
   btnReq.addEventListener('click', () => {
+    const valueParam_1 = document.querySelector('.input-1').value;
+    const valueParam_2 = document.querySelector('.input-2').value;
     if (valueParam_1 >= 100 && valueParam_1 <= 500 && valueParam_2 >= 100 && valueParam_2 <= 500) {
-    useRequest(reqUrl, valueParam_1, valueParam_2);
+        divWrong.innerHTML = "Запрос отправлен"
+        useRequest(reqUrl, valueParam_1, valueParam_2);
     } else {
-        divWrong.innerHTML = "Число вне диапазона от 100 до 500! "
+        divWrong.innerHTML = "Число вне диапазона от 100 до 500!"
     }
   });
