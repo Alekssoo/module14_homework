@@ -1,7 +1,3 @@
-// адрес для запроса. 
-
-//const reqUrl = "https://loremflickr.com/json/g/320/240/all";
-//const reqUrl = "https://loremflickr.com/json/g/";
 
 
 /*Функция-обертка над XMLHttpRequest, получающая введенные пользователем 
@@ -9,34 +5,45 @@
 callback - функция, которая вызовется при успешном выполнении
 */
 
-function useRequest(url, imageWidth, imageHeight, numImagesAvailable = 1) {
-    //let xhr = new XMLHttpRequest();
+function useRequest(imageWidth, imageHeight, numImagesAvailable = 3) {
+    let xhr = new XMLHttpRequest();
     let randomNumber = Math.floor(Math.random() * numImagesAvailable);
     let readyURL = `https://source.unsplash.com/collection/928423/${imageWidth}x${imageHeight}/?sig=${randomNumber}`
     //`${url}${getWidth}\/${getHeight}\/all`
     console.log(readyURL)
-    //xhr.open('GET', readyURL, true);
+    xhr.open('GET', readyURL, true);
   
-    // xhr.onload = function() {
-    //     if (xhr.status != 200) {
-    //         console.log('Статус ответа: ', xhr.status);
-    //     } else {
-    //         console.log('Результат: ', JSON.parse(xhr.response));
-    //     }
-    return fetch(readyURL, options)
-        .then((response) => {
-        console.log('response', response);
-        return response.json();
-        })
-        .then((json) => { 
-            console.log(json)
-            return json; })
-        .catch(() => { console.log('error') });
+    xhr.onload = function() {
+        if (xhr.status != 200) {
+            console.log('Статус ответа: ', xhr.status);
+        } else {
+
+            if (Object.keys(localStorage)) {
+                let keys = Object.keys(localStorage);
+                for(let key of keys) {
+                  alert(`${key}: ${localStorage.getItem(key)}`);
+                }
+            } else {
+                divWrong.innerHTML = `${JSON.parse(xhr.response)}`}
+            }
+            
+            //console.log('Результат: ', JSON.parse(xhr.response));
+            //console.log('Результат: ', xhr.response);
+        }
+    
+    // Добавляем обрабочик ошибки
+    xhr.onerror = function() {
+        // обработаем ошибку, не связанную с HTTP (например, нет соединения)
+        console.log('Ошибка! Статус ответа: ', xhr.status);
+    };
+
+
+    xhr.send();
+    
+}
+
     
 
-
-    //xhr.send();
-}
 
 
 
@@ -53,7 +60,7 @@ function useRequest(url, imageWidth, imageHeight, numImagesAvailable = 1) {
   
     if (widthParam >= 100 && widthParam <= 500 && heightParam >= 100 && heightParam <= 500) {
         divWrong.innerHTML = "Запрос отправлен"
-        await useRequest(reqUrl, widthParam, heightParam);
+        await useRequest(widthParam, heightParam);
     } else {
         divWrong.innerHTML = "Число вне диапазона от 100 до 500!"
     }
