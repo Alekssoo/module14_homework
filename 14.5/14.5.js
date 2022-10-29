@@ -21,7 +21,7 @@ function useRequest(imageWidth, imageHeight, numImagesAvailable = 3) {
             if (Object.keys(localStorage)) {
                 let keys = Object.keys(localStorage);
                 for(let key of keys) {
-                  alert(`${key}: ${localStorage.getItem(key)}`);
+                    divWrong.innerHTML +=`${key}: ${localStorage.getItem(key)}`;
                 }
             } else {
                 divWrong.innerHTML = `${JSON.parse(xhr.response)}`}
