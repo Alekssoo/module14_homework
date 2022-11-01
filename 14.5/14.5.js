@@ -2,7 +2,6 @@
 
 /*Функция-обертка над XMLHttpRequest, получающая введенные пользователем 
 параметры и осуществляющая запрос
-callback - функция, которая вызовется при успешном выполнении
 */
 
 function useRequest(imageWidth, imageHeight, numImagesAvailable = 3) {

@@ -19,9 +19,16 @@ function useRequest(url, getParam1, getParam2, callback) {
         if (xhr.status != 200) {
             console.log('Статус ответа: ', xhr.status);
         } else {
-            console.log('Результат: ', JSON.parse(xhr.response));
+            let data = JSON.parse(xhr.response);
+            console.log(`Результат: ${data}`);
+            console.log(`Результат: ${data.file}`);
         }
     };
+
+    // происходит, только когда запрос совсем не получилось выполнить
+    xhr.onerror = function() { 
+        console.log(`Ошибка соединения`);
+      };
 
 
     xhr.send();
@@ -39,8 +46,9 @@ function useRequest(url, getParam1, getParam2, callback) {
     const valueParam_1 = document.querySelector('.input-1').value;
     const valueParam_2 = document.querySelector('.input-2').value;
     if (valueParam_1 >= 100 && valueParam_1 <= 500 && valueParam_2 >= 100 && valueParam_2 <= 500) {
-        divWrong.innerHTML = "Запрос отправлен"
+        
         useRequest(reqUrl, valueParam_1, valueParam_2);
+        divWrong.innerHTML = "Запрос отправлен"
     } else {
         divWrong.innerHTML = "Число вне диапазона от 100 до 500!"
     }
