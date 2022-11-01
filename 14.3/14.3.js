@@ -15,10 +15,20 @@ callback - функция, которая вызовется при успешн
 */
 
 function useRequest(url, getWidth, getHeight, callback) {
-    //создание экземпляра XHR и инициализация запроса
+    //создание экземпляра XHR и формирование URL
     let xhr = new XMLHttpRequest();
     let readyURL = `${url}${getWidth}\/${getHeight}\/all`
     console.log(readyURL)
+
+    /*
+    корректный способ добавления GET-параметров в данном случае не подойдет
+    из-за формата url в задании,
+    поэтому привожу пример корректного добавления get-параметров в комментарии:
+    let url = new URL('https://google.com/search');
+    url.searchParams.set('q', 'test me!');
+    */
+
+    // инициализация запроса
     xhr.open('GET', readyURL, true);
     
     //при успешном выполнении запроса
@@ -33,17 +43,13 @@ function useRequest(url, getWidth, getHeight, callback) {
 
     // обработка ошибки отправки запроса
     xhr.onerror = function() { 
-        console.log(`Ошибка соединения`);
+        console.log('Ошибка! Статус ответа: ', xhr.status);
       };
 
     //отправка запроса
     xhr.send();
 }
 
-
-
-
-  
 
   // На кнопку вешаем обработчик запроса
   btnReq.addEventListener('click', () => {

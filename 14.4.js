@@ -5,13 +5,15 @@ function usePromise() {
     const myPromise = new Promise((resolve, reject) => {
         let randNumber = 0;
         let rand = () => {
+            //генерируем случайное число
             randNumber = Math.ceil(Math.random()*100)
+            //если четное, то успешное выполнение
             if (randNumber %2 === 0) {  
             resolve({
                 message: "Завершено успешно.",
                 number: randNumber,
             });
-            } else {
+            } else { //если нечетное, то неуспешное выполнение
                 reject({
                     message: "Завершено с ошибкой.",
                     number: randNumber,
