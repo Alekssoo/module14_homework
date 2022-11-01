@@ -1,55 +1,58 @@
+
+const btnReq = document.querySelector('.btn-req');
+
+const divResult = document.querySelector('.div-result');
+
 // адрес для запроса. 
 
-//const reqUrl = "https://loremflickr.com/json/g/320/240/all";
 const reqUrl = "https://loremflickr.com/json/g/";
 
 
 /*Функция-обертка над XMLHttpRequest, получающая введенные пользователем 
 параметры и осуществляющая запрос
-callback - функция, которая вызовется при успешном выполнении
+callback - функция, которая вызовется при успешном выполнении,
+в данном случае она для последующих доработок и здесь не используется
 */
 
-function useRequest(url, getParam1, getParam2, callback) {
+function useRequest(url, getWidth, getHeight, callback) {
+    //создание экземпляра XHR и инициализация запроса
     let xhr = new XMLHttpRequest();
-    let readyURL = `${url}${getParam1}\/${getParam2}\/all`
+    let readyURL = `${url}${getWidth}\/${getHeight}\/all`
     console.log(readyURL)
     xhr.open('GET', readyURL, true);
-  
+    
+    //при успешном выполнении запроса
     xhr.onload = function() {
         if (xhr.status != 200) {
             console.log('Статус ответа: ', xhr.status);
         } else {
             let data = JSON.parse(xhr.response);
-            console.log(`Результат: ${data}`);
-            console.log(`Результат: ${data.file}`);
+            divResult.innerHTML = `<img src = ${data.file} alt="result-image">`
         }
     };
 
-    // происходит, только когда запрос совсем не получилось выполнить
+    // обработка ошибки отправки запроса
     xhr.onerror = function() { 
         console.log(`Ошибка соединения`);
       };
 
-
+    //отправка запроса
     xhr.send();
 }
 
 
 
-  const btnReq = document.querySelector('.btn-req');
 
-  const divWrong = document.querySelector('.div-wrong');
   
 
   // На кнопку вешаем обработчик запроса
   btnReq.addEventListener('click', () => {
-    const valueParam_1 = document.querySelector('.input-1').value;
-    const valueParam_2 = document.querySelector('.input-2').value;
-    if (valueParam_1 >= 100 && valueParam_1 <= 500 && valueParam_2 >= 100 && valueParam_2 <= 500) {
+    const valueWidth = document.querySelector('.input-width').value;
+    const valueHeight = document.querySelector('.input-height').value;
+    if (valueWidth >= 100 && valueWidth <= 500 && valueHeight >= 100 && valueHeight <= 500) {
         
-        useRequest(reqUrl, valueParam_1, valueParam_2);
-        divWrong.innerHTML = "Запрос отправлен"
+        useRequest(reqUrl, valueWidth, valueHeight);
     } else {
-        divWrong.innerHTML = "Число вне диапазона от 100 до 500!"
+        divResult.innerHTML = "Число вне диапазона от 100 до 500!"
     }
   });

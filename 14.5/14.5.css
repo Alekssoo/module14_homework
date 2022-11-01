@@ -1,3 +1,7 @@
+.header, .div-result, .btn {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .btn {
     padding: 0;
     background-color: transparent;
@@ -24,8 +28,6 @@
 }
 
 .input-width, .input-height {
-    /* display: block; */
-    /* width: 100%; */
     height: calc(2.25rem + 2px);
     padding: 0.375rem 0.75rem;
     font-family: inherit;
@@ -48,7 +50,7 @@
     box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
   }
 
-.div-wrong {
+.div-result {
     margin-top: 20px;
     color: red;
     font-size: large;
